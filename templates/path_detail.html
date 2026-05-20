@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Learning Path Details{% endblock %}
+{% block content %}
+<h2>Learning Path Details</h2>
+
+{% if next_resource %}
+<div class="alert alert-info">
+    <strong>Next Step:</strong> {{ next_resource.resource_title }}
+</div>
+{% endif %}
+
+<h4>Progress: {{ "%.0f"|format(progress) }}%</h4>
+<div class="progress mb-4" role="progressbar" aria-label="Learning Path Progress" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar bg-success" style="width: {{ progress }}%;"></div>
+</div>
+
+<ul class="list-group">
+    {% for res in resources %}
+    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+        <div class="me-3 mb-2 mb-md-0">
+            <strong>{{ res.order }}. 
+                <a href="{{ res.url }}" target="_blank">{{ res.resource_title }}</a>
+            </strong>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="badge me-3 {% if res.status == 'completed' %}bg-success{% elif res.status == 'in_progress' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
+                {{ res.status.replace('_', ' ') | title }}
+            </span>
+            
+            <form action="{{ url_for('update_status') }}" method="POST" class="d-inline me-2">
+                <input type="hidden" name="path_id" value="{{ res.path_id }}">
+                <input type="hidden" name="resource_title" value="{{ res.resource_title }}">
+                
+                <label for="status-select-{{ loop.index }}" class="visually-hidden">Update status for {{ res.resource_title }}</label>
+                <select name="status" id="status-select-{{ loop.index }}" class="form-select form-select-sm d-inline w-auto" onchange="this.form.submit()">
+                    <option value="not_started" {% if res.status == 'not_started' %}selected{% endif %}>Not Started</option>
+                    <option value="in_progress" {% if res.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if res.status == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </form>
+            
+            <form action="{{ url_for('delete_resource_from_path') }}" method="POST" class="d-inline">
+                <input type="hidden" name="path_id" value="{{ path_id }}">
+                <input type="hidden" name="resource_title" value="{{ res.resource_title }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger" 
+                        onclick="return confirm('Are you sure you want to remove this resource from the path?');">
+                    &times;
+                </button>
+            </form>
+
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('my_paths') }}" class="btn btn-secondary mt-3">Back to All Paths</a>
+{% endblock %}

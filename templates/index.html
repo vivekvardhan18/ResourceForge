@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Find Resources{% endblock %}
+{% block content %}
+
+<div class="hero-section text-center">
+    <h1 class="display-5">Find Your Perfect Learning Resources</h1>
+    <p class="lead text-muted">Personalized academic recommendations based on your preferences and learning style</p>
+</div>
+
+<div class="search-form-container">
+    <form action="{{ url_for('recommend_resources') }}" method="POST">
+        <div class="row g-2">
+            <div class="col-lg-6">
+                <input type="search" class="form-control" name="topic_query" placeholder="Search for topics, subjects, or resources..." required>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-select" name="type">
+                    <option value="">All Types</option>
+                     {% for type in types %}
+                        <option value="{{ type }}">{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2">
+                 <select class="form-select" name="level">
+                    <option value="">All Levels</option>
+                    {% for level in levels %}
+                        <option value="{{ level }}">{{ level }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h2>Discover Resources</h2>
+    <p class="text-muted">No resources found. Try adjusting your search criteria.</p>
+</div>
+
+{% endblock %}

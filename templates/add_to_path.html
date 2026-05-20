@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Add Resources to Path{% endblock %}
+{% block content %}
+<h2>Add Saved Resources</h2>
+<p>Select a bookmarked resource to add to your learning path.</p>
+
+{% if bookmarks %}
+    <div class="list-group">
+    {% for bookmark in bookmarks %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ bookmark.resource_title }}</span>
+            <form action="{{ url_for('add_resource_to_path') }}" method="POST">
+                <input type="hidden" name="path_id" value="{{ path_id }}">
+                <input type="hidden" name="resource_title" value="{{ bookmark.resource_title }}">
+                <button type="submit" class="btn btn-sm btn-primary">Add to Path</button>
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        You have no saved resources that aren't already in this path. <a href="{{ url_for('home') }}">Find and save more resources!</a>
+    </div>
+{% endif %}
+<a href="{{ url_for('path_detail', path_id=path_id) }}" class="btn btn-secondary mt-3">Back to Path</a>
+{% endblock %}

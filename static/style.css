@@ -1,0 +1,98 @@
+/* --- Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* --- THEME VARIABLES --- */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg-color: #ffffff;
+    --border-color: #dee2e6;
+    --hero-bg-color: #e9ecef;
+    --shadow-color: rgba(0,0,0,0.05);
+    --muted-text-color: #6c757d;
+}
+
+html.dark-mode {
+    --bg-color: #1a202c;
+    --text-color: #edf2f7;
+    --card-bg-color: #2d3748;
+    --border-color: #4a5568;
+    --hero-bg-color: #2d3748;
+    --shadow-color: rgba(0,0,0,0.4);
+    --muted-text-color: #a0aec0;
+}
+
+/* --- General Body Styles --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-content { flex: 1; }
+h1, h2, h3, h4, h5, h6 { color: var(--text-color); }
+.text-muted { color: var(--muted-text-color) !important; }
+
+/* --- Navbar --- */
+.navbar.bg-white {
+    background-color: var(--card-bg-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    transition: background-color 0.3s ease;
+}
+
+html.dark-mode .navbar-brand, html.dark-mode .nav-link {
+    color: var(--text-color) !important;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background-color: var(--hero-bg-color);
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: .3rem;
+    transition: background-color 0.3s ease;
+}
+
+/* --- Containers & Cards --- */
+.search-form-container, .card, .auth-container {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border-radius: .3rem;
+    transition: background-color 0.3s ease;
+}
+.search-form-container { padding: 2rem; margin-bottom: 2rem; }
+.auth-container { max-width: 500px; margin: 3rem auto; padding: 2rem; }
+
+/* --- Footer --- */
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* --- Dark Mode Form Inputs --- */
+html.dark-mode .form-control, html.dark-mode .form-select {
+    background-color: #4a5568;
+    color: #edf2f7;
+    border-color: #718096;
+}
+html.dark-mode .form-floating > label { color: #a0aec0; }
+
+/* --- Theme Toggle Button --- */
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d; /* Muted color for light mode */
+}
+html.dark-mode #theme-toggle {
+    color: #f8f9fa; /* Light color for dark mode */
+}
