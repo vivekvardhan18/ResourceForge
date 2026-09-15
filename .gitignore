@@ -13,6 +13,12 @@ venv/
 instance/
 .webassets-cache
 
+# Runtime-generated application data
+users.csv
+bookmarks.csv
+learning_paths.csv
+path_resources.csv
+
 # OS
 .DS_Store
 Thumbs.db
